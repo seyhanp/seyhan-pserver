@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="seyhan-pserver" basedir="." default="build">
+
+	<property name="version" value="1.0.0"/>
+
+	<!-- Globals -->
+	<property name="src" location="app/com/seyhanproject/pserver" />
+	<property name="dist.folder" location="dist" />
+	<property name="lib.folder" location="lib" />
+	<property name="target.folder" location="target" />
+
+	<!-- Start -->
+	<target name="init" description="initializing the folders">
+		<tstamp />
+		<mkdir dir="${target.folder}/" />
+		<mkdir dir="${dist.folder}/" />
+	</target>
+	
+	<!-- Build it -->
+	<target name="compile" description="compiling the source">
+		<javac debug="true" srcdir="${src}" destdir="${target.folder}" includeantruntime="false" encoding="UTF-8">
+			<compilerarg value="-XDignore.symbol.file"/>
+			<classpath>
+				<fileset dir="${lib.folder}">
+					<include name="**/*.jar"/>
+				</fileset>
+			</classpath>
+		</javac>
+	</target>
+	
+	<!-- Package it -->
+	<target name="compress_jar" depends="compile" description="preparing the jar">
+		<jar destfile="${dist.folder}/${ant.project.name}-${version}.jar"  basedir="${target.folder}" />
+	</target>
+
+	<target name="build" depends="init, compress_jar"  description="packaging the ${dist.name}" />
+
+</project>

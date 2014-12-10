@@ -1,0 +1,6 @@
+/logs/
+/dist/
+/bin/
+.history
+org.scala-ide.sdt.core.prefs
+/target/
