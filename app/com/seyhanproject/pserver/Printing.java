@@ -24,6 +24,7 @@ import java.awt.print.Paper;
 import java.awt.print.PrinterJob;
 import java.io.File;
 import java.io.PrintWriter;
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -71,7 +72,13 @@ public class Printing {
 					PrintWriter out = new PrintWriter(pathSB.toString());
 					if (doc.targetType == Document.DOT_MATRIX && doc.isCompressed) out.print("\u0014");
 					for (int i = 0; i < rows.size(); i++) {
-						out.println(rows.get(i));
+						if (doc.targetType == Document.DOT_MATRIX) {
+							String newline = Normalizer.normalize(rows.get(i), Normalizer.Form.NFD).replaceAll("\\p{Mn}", "");
+							newline = newline.replace('ı', 'i');
+							out.println(newline);
+						} else {
+							out.println(rows.get(i));
+						}
 					}
 					out.close();
 					result = pathSB.toString();
