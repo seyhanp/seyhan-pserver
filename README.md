@@ -1,4 +1,4 @@
-seyhan-pserver
+The seyhan-pserver
 ==============
 
-seyhan projesi için yazıcı servisi projesi
+The printing service project for seyhan
